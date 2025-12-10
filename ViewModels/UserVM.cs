@@ -1,0 +1,13 @@
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace State_Managment.ViewModels
+{
+    public class UserVM
+    {
+        [Required(ErrorMessage="Le login est obligatoire !")]
+        public string Login { get; set; }
+        [Required(ErrorMessage ="Le mot de pass est lobligatoire !")]
+        [DataType(DataType.Password)]
+        public string Password { get; set; }
+    }
+}

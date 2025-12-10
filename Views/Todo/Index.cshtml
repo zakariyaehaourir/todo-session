@@ -1,0 +1,48 @@
+﻿@model List<State_Managment.Models.Todo>
+@{
+    var todayDateTime = DateTime.Today;
+}
+<h2>Liste des tâches</h2>
+
+<table border="1" cellpadding="5" cellspacing="0">
+    <thead>
+        <tr>
+            <th>Titre</th>
+            <th>Description</th>
+            <th>Date limit</th>
+            <th>Statut</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model == null || !Model.Any())
+        {
+            <tr>
+                <td colspan="5" style="text-align:center;">Aucune tâche pour le moment.</td>
+            </tr>
+        }
+        else
+        {
+            @foreach (var item in Model)
+            {
+                int isDepassed = DateTime.Compare(item.DateLimit, todayDateTime); //return <0 si d1 avant d2
+                <tr class="@(
+                        (item.State == State_Managment.Enums.TodoState.Done ? "barre" : "") +
+                        (isDepassed < 0 ? "depasser" : "")
+                    )">
+                    <td>@item.Libelle</td>
+                    <td>@item.Description</td>
+                    <td>@item.DateLimit</td>
+                    <td>@item.State</td>
+                    <td>
+                        <a asp-controller="Todo" asp-action="Edit" asp-route-id="@item.Id">Editer</a>
+                        <form asp-controller="Todo" asp-action="Delete" asp-route-id="@item.Id" method="POST">
+                            <input type="submit" value="Supprimer"/>
+                       
+                        </form>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
