@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using State_Managment.Services;
 using State_Managment.ViewModels;
-using System.Diagnostics;
+using State_Managment.Filters;
 
 namespace State_Managment.Controllers
 {
@@ -18,6 +18,7 @@ namespace State_Managment.Controllers
         }
 
         [HttpPost("/Register")]
+        
         public IActionResult Register(UserVM Request)
         {
            
