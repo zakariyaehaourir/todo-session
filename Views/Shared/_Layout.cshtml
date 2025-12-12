@@ -1,22 +1,30 @@
 ﻿@{
+    // La logique pour déterminer le thème est déjà présente, nous allons l'utiliser.
     var theme = Context.Request.Cookies["bg-color"] ?? "white";
+    // Nom d'utilisateur statique comme demandé
+    var userName = "John Doe";
 }
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - State_Managment</title>
+    <title>@ViewData["Title"] - TodoApp</title>
     <script type="importmap"></script>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/State_Managment.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+
 </head>
 <body class="@theme">
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm @(theme == "dark" ? "navbar-dark bg-dark" : "navbar-light") border-bottom box-shadow mb-3" style="@(theme != "dark" ? "background-color: #2a9d8f;" : "")">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">State_Managment</a>
+                <a class="navbar-brand text-white" asp-area="" asp-controller="Todo" asp-action="Index">
+                    <i class="fas fa-tasks me-2"></i>TodoApp
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -24,13 +32,31 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-white" asp-area="" asp-controller="Todo" asp-action="Index">
+                                <i class="fas fa-list me-1"></i> Mes Tâches
+                            </a>
                         </li>
+                    </ul>
+                    <!-- Section pour les éléments de droite (Thème et Profil) -->
+                    <ul class="navbar-nav">
+                        <!-- Bouton pour le toggle du thème -->
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <button class="btn btn-link nav-link py-2 px-0 px-lg-2 text-white" id="theme-toggle" title="Basculer le thème">
+                                <i class="@(theme == "dark" ? "fas fa-sun" : "fas fa-moon")"></i>
+                            </button>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Todo" asp-action="Index">Todo</a>
+                        <!-- Menu déroulant du profil utilisateur -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-white" href="#" id="user-dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-user-circle me-1"></i>
+                                @userName
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="user-dropdown">
+                                <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i>Profil</a></li>
+                                <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i>Paramètres</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item text-danger" href="#"><i class="fas fa-sign-out-alt me-2"></i>Déconnexion</a></li>
+                            </ul>
                         </li>
                     </ul>
                 </div>
@@ -43,14 +69,27 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="border-top footer text-muted mt-5">
         <div class="container">
-            &copy; 2025 - State_Managment - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2025 - TodoApp - <i class="fas fa-heart text-danger"></i> Fait avec ASP.NET Core
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    
+    <!-- SCRIPT POUR LE TOGGLE DU THÈME (UI SEULEMENT) -->
+    <script>
+        // Ce script est une démonstration de l'interface utilisateur.
+        // La logique réelle pour sauvegarder le thème (ex: cookie) devrait être implémentée ici.
+        document.getElementById('theme-toggle').addEventListener('click', function () {
+            // Logique de basculement à implémenter
+            // Exemple : document.body.classList.toggle('dark');
+            // Puis sauvegarder le choix dans un cookie.
+            alert("Bouton de thème cliqué ! La logique de basculement doit être ajoutée ici.");
+        });
+    </script>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

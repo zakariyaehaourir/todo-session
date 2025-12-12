@@ -50,6 +50,12 @@ CodeCoverage/
 
 # Visual Studio
 .vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+appsettings.*.local.json
 
 # NUnit
 *.VisualState.xml
