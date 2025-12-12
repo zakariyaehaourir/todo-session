@@ -1,0 +1,13 @@
+2025-12-12 20:53:14 | Controller=Todo, Action=Index, User Connected=, Params=null
+2025-12-12 20:53:14 | Controller=User, Action=Register, User Connected=, Params=null
+2025-12-12 20:53:49 | Controller=User, Action=Register, User Connected=, Params={"Login":"ziko","Password":"ziko"}
+2025-12-12 20:53:49 | Controller=Todo, Action=Index, User Connected=ziko, Params=null
+2025-12-12 20:54:21 | Controller=Todo, Action=Create, User Connected=ziko, Params=null
+2025-12-12 20:54:47 | Controller=Todo, Action=Create, User Connected=ziko, Params={"Libelle":"C# pratique","Description":"Traitement de mode sombre ....","State":2,"DateLimit":"2025-12-12T00:00:00"}
+2025-12-12 20:54:47 | Controller=Todo, Action=Index, User Connected=ziko, Params=null
+2025-12-12 20:55:18 | Controller=Todo, Action=Create, User Connected=ziko, Params=null
+2025-12-12 20:56:29 | Controller=Todo, Action=Create, User Connected=ziko, Params={"Libelle":"D\u00E9velopper l\u0027interface Dashboard d\u0027admin","Description":"L\u0027interface doit lister les statistiques des todos avec leurs status avec chart js","State":1,"DateLimit":"2025-12-27T00:00:00"}
+2025-12-12 20:56:29 | Controller=Todo, Action=Index, User Connected=ziko, Params=null
+2025-12-12 20:56:35 | Controller=Todo, Action=Edit, User Connected=ziko, Params=1
+2025-12-12 20:56:41 | Controller=Todo, Action=Update, User Connected=ziko, Params={"Id":1,"Libelle":"C# pratique","Description":"Traitement de mode sombre ....","State":2,"DateLimit":"2025-12-13T00:00:00"}
+2025-12-12 20:56:41 | Controller=Todo, Action=Index, User Connected=ziko, Params=null
