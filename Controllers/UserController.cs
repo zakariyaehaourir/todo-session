@@ -26,18 +26,27 @@ namespace State_Managment.Controllers
                 return RedirectToAction("Register");
             }
             //Verification simple login == password OK
-            if (_userService.IsAuthenticated(Request.Login , Request.Password))
+            if (_userService.IsAuthenticated(Request))
             {
-                //1)creation du session
-                HttpContext.Session.SetString("IsAuth", Request.Login);
-                //2)redirection
-                return RedirectToAction("Index", "Home"); //Action , Controller
+                _userService.SetUserSession(Request);
+                
+                //redirection
+                return RedirectToAction("Index", "Todo"); //Action , Controller
                
 
             }
+            
+
             //erreur informations non correct !
             ViewBag.Error = "Identifiants incorrects";
             return View();
+        }
+        [HttpGet("/Logout")]
+        public IActionResult Logout()
+        {
+            _userService.Logout();
+            return RedirectToAction(nameof(Register));
+
         }
     }
 }
