@@ -48,7 +48,7 @@ body {
     transition: background-color 0.3s ease, color 0.3s ease;
     margin-bottom: 60px;
 }
-body.black {
+body.dark {
         background-color: #121212;
         color: #e0e0e0;
    }
@@ -65,10 +65,10 @@ body.white {
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
   text-align: start;
 }
-/* Style pour les tâches terminées */
+/*  taches terminated */
 .barre {
     opacity: 0.7;
-    background-color: #f8f9fa; /* Gris très clair */
+    background-color: #f8f9fa;
 }
 
     .barre .card-title {
@@ -76,7 +76,7 @@ body.white {
         color: #6c757d; /* Gris */
     }
 
-/* Style pour les tâches en retard */
+/* en retard */
 .depasser {
     border-left: 5px solid #dc3545; /* Barre rouge à gauche */
     animation: pulse-red 2s infinite;

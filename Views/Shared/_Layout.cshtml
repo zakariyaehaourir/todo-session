@@ -78,15 +78,11 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     
-    <!-- SCRIPT POUR LE TOGGLE DU THÈME (UI SEULEMENT) -->
+
     <script>
-        // Ce script est une démonstration de l'interface utilisateur.
-        // La logique réelle pour sauvegarder le thème (ex: cookie) devrait être implémentée ici.
-        document.getElementById('theme-toggle').addEventListener('click', function () {
-            // Logique de basculement à implémenter
-            // Exemple : document.body.classList.toggle('dark');
-            // Puis sauvegarder le choix dans un cookie.
-            alert("Bouton de thème cliqué ! La logique de basculement doit être ajoutée ici.");
+        var themeBtn=document.getElementById('theme-toggle')
+        themeBtn.addEventListener('click', function () {
+            window.location= "/Theme/SetTheme"
         });
     </script>
 
