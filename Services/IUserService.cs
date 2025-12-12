@@ -5,7 +5,7 @@ namespace State_Managment.Services
     public interface IUserService
     {
         public bool IsAuthenticated(UserVM request);
-        public void SetUserSession(UserVM request);
+        public Task SetUserSession(UserVM request , HttpContext http);
         public bool Logout();
     }
 }

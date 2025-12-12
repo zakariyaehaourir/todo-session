@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using State_Managment.Filters;
 using State_Managment.Mappers;
@@ -10,8 +11,9 @@ using System.Text.Json;
 
 namespace State_Managment.Controllers
 {
-    [AuthFilter]
+    //[AuthFilter]
     //[LoggerFilter]
+    [Authorize]
     public class TodoController : Controller
     {
         private readonly TodoService _todoService;
@@ -41,6 +43,7 @@ namespace State_Managment.Controllers
 
         }
         [HttpPost]
+        [Authorize(Roles = "CanRemove")] //Acces dinied si le user n'a pas ce role :)
         public IActionResult Delete(int id)
         {
 

@@ -2,6 +2,7 @@
 using State_Managment.Services;
 using State_Managment.ViewModels;
 using State_Managment.Filters;
+using Microsoft.AspNetCore.Authentication;
 
 namespace State_Managment.Controllers
 {
@@ -29,11 +30,11 @@ namespace State_Managment.Controllers
             //Verification simple login == password OK
             if (_userService.IsAuthenticated(Request))
             {
-                _userService.SetUserSession(Request);
+                _userService.SetUserSession(Request , HttpContext);
                 
                 //redirection
                 return RedirectToAction("Index", "Todo"); //Action , Controller
-               
+            
 
             }
             

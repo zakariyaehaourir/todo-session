@@ -1,7 +1,7 @@
 ﻿@{
 
     var theme = Context.Request.Cookies["bg-color"] ?? "white";
-    var userName = Context.Session.GetString("UserAuth");
+    //var userName = Context.Session.GetString("UserAuth");
 }
 <!DOCTYPE html>
 <html lang="fr">
@@ -45,16 +45,16 @@
                             </button>
                         </li>
                         <!-- Menu profil utilisateur -->
-                        @if (userName != null)
+                        @if (User != null && User.Identity.IsAuthenticated)
                         {
                         
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-white" href="#" id="user-dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fas fa-user-circle me-1"></i>
-                                @if(userName != null)
-                                {
-                                    @userName
-                                }
+                               
+                                
+                                    @User.Identity.Name
+                                
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="user-dropdown">
                                 <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i>Profil</a></li>

@@ -7,9 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews(options =>
 {
     options.Filters.Add<LoggerFilter>();
-}
-    
-    );
+});
 builder.Services.AddScoped<IUserService, UserService>(); //Chaque requette = instance
 builder.Services.AddScoped<TodoService>();
 builder.Services.AddScoped<ISessionManager , SessionManager>();
@@ -25,6 +23,17 @@ builder.Services.AddSession(opt=>
 var fileSettings = builder.Configuration.GetSection("FileSettings").Get<FileSettings>();
 builder.Services.AddSingleton(fileSettings);
 builder.Services.AddSingleton<IFileService, FileService>();
+
+
+//Pratiquer l'authentification de asp nature :
+//1) definir le schema d'auth  , je veux utiliser une auth nomee auth_schema avec les cockies
+builder.Services.AddAuthentication("DefaultAuth").AddCookie("DefaultAuth", options => {
+    options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+    options.LoginPath = "/Register"; //redige si no auth a ce chemin
+    options.AccessDeniedPath = "/Todo/Index"; //Access refuser pour supp une todo :)
+    });
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -38,6 +47,7 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseRouting();
 app.UseSession();
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapStaticAssets();
