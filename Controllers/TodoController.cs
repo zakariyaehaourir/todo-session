@@ -9,7 +9,7 @@ using System.Text.Json;
 
 namespace State_Managment.Controllers
 {
-    //[Filters.IsAuthFilter]
+    [Filters.AuthFilter]
     public class TodoController : Controller
     {
         private readonly TodoService _todoService;

@@ -1,8 +1,7 @@
 ﻿@{
-    // La logique pour déterminer le thème est déjà présente, nous allons l'utiliser.
+
     var theme = Context.Request.Cookies["bg-color"] ?? "white";
-    // Nom d'utilisateur statique comme demandé
-    var userName = "John Doe";
+    var userName = Context.Session.GetString("UserAuth");
 }
 <!DOCTYPE html>
 <html lang="fr">
@@ -37,27 +36,34 @@
                             </a>
                         </li>
                     </ul>
-                    <!-- Section pour les éléments de droite (Thème et Profil) -->
+                    <!--Thème et Profil -->
                     <ul class="navbar-nav">
-                        <!-- Bouton pour le toggle du thème -->
+                        <!-- toggle theme -->
                         <li class="nav-item">
                             <button class="btn btn-link nav-link py-2 px-0 px-lg-2 text-white" id="theme-toggle" title="Basculer le thème">
                                 <i class="@(theme == "dark" ? "fas fa-sun" : "fas fa-moon")"></i>
                             </button>
                         </li>
-                        <!-- Menu déroulant du profil utilisateur -->
+                        <!-- Menu profil utilisateur -->
+                        @if (userName != null)
+                        {
+                        
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-white" href="#" id="user-dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fas fa-user-circle me-1"></i>
-                                @userName
+                                @if(userName != null)
+                                {
+                                    @userName
+                                }
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="user-dropdown">
                                 <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i>Profil</a></li>
                                 <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i>Paramètres</a></li>
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item text-danger" href="#"><i class="fas fa-sign-out-alt me-2"></i>Déconnexion</a></li>
+                                <li><a class="dropdown-item text-danger"  id="logout"><i class="fas fa-sign-out-alt me-2"></i>Déconnexion</a></li>
                             </ul>
                         </li>
+                        }
                     </ul>
                 </div>
             </div>
@@ -83,6 +89,10 @@
         var themeBtn=document.getElementById('theme-toggle')
         themeBtn.addEventListener('click', function () {
             window.location= "/Theme/SetTheme"
+        });
+        //logout //redirect to controller action
+        document.getElementById("logout").addEventListener('click' , function (){
+            window.location = "/Logout"
         });
     </script>
 

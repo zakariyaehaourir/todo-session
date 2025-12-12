@@ -1,5 +1,7 @@
 ﻿
+using Microsoft.AspNetCore.Http;
 using System.Text.Json;
+using static System.Net.WebRequestMethods;
 
 namespace State_Managment.Services
 {
@@ -13,8 +15,20 @@ namespace State_Managment.Services
 
         public T GetSession<T>(string key)
         {
-            if(IsExist(key))
-                return JsonSerializer.Deserialize<T>(_http.HttpContext.Session.GetString(key));
+            if (IsExist(key))
+            {
+                var data = _http.HttpContext.Session.GetString(key);
+
+                if(typeof(T) == typeof(string))
+                {
+                    return (T)(object)data; // compliteur refuse cast direct struct -> T
+                }
+                else
+                {
+                    return JsonSerializer.Deserialize<T>(data);
+                }
+            }
+                
             return default;
         }
 
@@ -26,7 +40,21 @@ namespace State_Managment.Services
 
         public void SetSession<T>(string key, T objet)
         {
-            _http.HttpContext.Session.SetString(key, JsonSerializer.Serialize<T>(objet));
+            if (objet is string _str)
+                _http.HttpContext.Session.SetString(key, _str);
+            else
+                _http.HttpContext.Session.SetString(key, JsonSerializer.Serialize<T>(objet));
+        }
+
+        public bool Clear(string key)
+        {
+            if (IsExist(key)){
+                _http.HttpContext.Session.Remove(key);
+                return true;
+            }
+
+               
+            return false;
         }
     }
 }
