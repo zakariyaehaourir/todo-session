@@ -1,9 +1,15 @@
+using State_Managment.Filters;
+using State_Managment.Options;
 using State_Managment.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews(options =>
+{
+    options.Filters.Add<LoggerFilter>();
+}
+    
+    );
 builder.Services.AddScoped<IUserService, UserService>(); //Chaque requette = instance
 builder.Services.AddScoped<TodoService>();
 builder.Services.AddScoped<ISessionManager , SessionManager>();
@@ -15,6 +21,10 @@ builder.Services.AddSession(opt=>
         opt.Cookie.Name = "SessionId";
     }
     );
+//Mapper la section dans json a la class FileSettings bch mn2njktiwch  IConf dans les classes
+var fileSettings = builder.Configuration.GetSection("FileSettings").Get<FileSettings>();
+builder.Services.AddSingleton(fileSettings);
+builder.Services.AddSingleton<IFileService, FileService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

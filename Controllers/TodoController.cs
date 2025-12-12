@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using State_Managment.Filters;
 using State_Managment.Mappers;
 using State_Managment.Models;
 using State_Managment.Services;
@@ -9,7 +10,8 @@ using System.Text.Json;
 
 namespace State_Managment.Controllers
 {
-    [Filters.AuthFilter]
+    [AuthFilter]
+    //[LoggerFilter]
     public class TodoController : Controller
     {
         private readonly TodoService _todoService;
