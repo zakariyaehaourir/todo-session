@@ -1,53 +1,90 @@
 ﻿@model State_Managment.ViewModels.ToDoEditVM
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Modifier la Tâche";
 }
 
-<h1>Edit</h1>
+<!-- Conteneur principal pour centrer le contenu -->
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8">
 
-<h4>ToDoEditVM</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Update" asp-controller="Todo" method="POST">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                
-                <input asp-for="Id" class="form-control" type="hidden"/>
+            <!-- Carte pour englober le formulaire -->
+            <div class="card shadow-lg border-0">
+                <!-- En-tête de la carte avec le titre et une icône -->
+                <div class="card-header bg-gradient text-white" style="background-color: #2a9d8f;">
+                    <h3 class="mb-0">
+                        <i class="fas fa-pen-to-square me-2"></i>Modifier la Tâche
+                    </h3>
+                </div>
+                <div class="card-body p-4">
+                    <form asp-action="Update" asp-controller="Todo" method="POST">
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
 
+                        <!-- Champ ID caché -->
+                        <input asp-for="Id" type="hidden" />
+
+                        <!-- Champ Libellé -->
+                        <div class="mb-3">
+                            <label asp-for="Libelle" class="form-label fw-bold"></label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-tag"></i></span>
+                                <input asp-for="Libelle" class="form-control" placeholder="Ex: Acheter du pain" />
+                            </div>
+                            <span asp-validation-for="Libelle" class="text-danger small"></span>
+                        </div>
+
+                        <!-- Champ Description -->
+                        <div class="mb-3">
+                            <label asp-for="Description" class="form-label fw-bold"></label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-align-left"></i></span>
+                                <textarea asp-for="Description" class="form-control" rows="4" placeholder="Ajoutez plus de détails ici..."></textarea>
+                            </div>
+                            <span asp-validation-for="Description" class="text-danger small"></span>
+                        </div>
+
+                        <!-- Champ État -->
+                        <div class="mb-3">
+                            <label asp-for="State" class="form-label fw-bold"></label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-flag"></i></span>
+                                <select asp-for="State" asp-items="Html.GetEnumSelectList<State_Managment.Enums.TodoState>()" class="form-select"></select>
+                            </div>
+                            <span asp-validation-for="State" class="text-danger small"></span>
+                        </div>
+
+                        <!-- Champ Date Limite -->
+                        <div class="mb-4">
+                            <label asp-for="DateLimit" class="form-label fw-bold"></label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                                <input asp-for="DateLimit" class="form-control" type="date" />
+                            </div>
+                            <span asp-validation-for="DateLimit" class="text-danger small"></span>
+                        </div>
+
+                        <!-- Bouton de soumission -->
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-success btn-lg">
+                                <i class="fas fa-save me-2"></i>Enregistrer les modifications
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <!-- Pied de page de la carte avec le lien de retour -->
+                <div class="card-footer text-center bg-light">
+                    <a asp-action="Index" class="btn btn-outline-secondary">
+                        <i class="fas fa-arrow-left me-2"></i>Retour à la liste
+                    </a>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Libelle" class="control-label"></label>
-                <input asp-for="Libelle" class="form-control" />
-                <span asp-validation-for="Libelle" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <textarea asp-for="Description" class="form-control"></textarea>
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="State" class="control-label"></label>
-                <select asp-for="State" asp-items="Html.GetEnumSelectList<State_Managment.Enums.TodoState>()"></select>
-                <span asp-validation-for="State" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DateLimit" class="control-label"></label>
-                <input asp-for="DateLimit" class="form-control" />
-                <span asp-validation-for="DateLimit" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

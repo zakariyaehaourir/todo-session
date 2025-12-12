@@ -1,3 +1,16 @@
+@@keyframes pulse-red {
+    0% {
+        box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.4);
+    }
+
+    70% {
+        box-shadow: 0 0 0 10px rgba(220, 53, 69, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(220, 53, 69, 0);
+    }
+}
 html {
   font-size: 14px;
 }
@@ -17,13 +30,28 @@ html {
   min-height: 100%;
 }
 
+
+        body.dark .card {
+            background-color: #1e1e1e;
+            color: #e0e0e0;
+        }
+
+        body.dark .navbar {
+            background-color: #1e1e1e !important;
+        }
+
+        body.dark .text-muted {
+            color: #a0a0a0 !important;
+  }
+
 body {
-  margin-bottom: 60px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    margin-bottom: 60px;
 }
 body.black {
-        background-color: black;
-        color: white;
-    }
+        background-color: #121212;
+        color: #e0e0e0;
+   }
 
 body.white {
         background-color: white;
@@ -37,12 +65,19 @@ body.white {
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
   text-align: start;
 }
+/* Style pour les tâches terminées */
 .barre {
-    text-decoration: line-through;
-    color: gray;
     opacity: 0.7;
+    background-color: #f8f9fa; /* Gris très clair */
 }
-.depasser{
-    background-color: red;
 
+    .barre .card-title {
+        text-decoration: line-through;
+        color: #6c757d; /* Gris */
+    }
+
+/* Style pour les tâches en retard */
+.depasser {
+    border-left: 5px solid #dc3545; /* Barre rouge à gauche */
+    animation: pulse-red 2s infinite;
 }

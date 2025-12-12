@@ -1,42 +1,75 @@
 ﻿@model State_Managment.ViewModels.UserVM
 
 @{
-    ViewData["Title"] = "Register";
+    ViewData["Title"] = "Se connecter";
 }
 
-<h1>Register</h1>
+<!-- Conteneur principal pour centrer le contenu -->
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-5 col-md-7">
 
-<h4>UserVM</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        @if (ViewBag.Error != null)
-        {
-            <div class="alert alert-danger">@ViewBag.Error</div>
-        }
-        <form asp-action="Register" asp-controller="User">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Login" class="control-label"></label>
-                <input asp-for="Login" class="form-control" />
-                <span asp-validation-for="Login" class="text-danger"></span>
+            <!-- Carte pour englober le formulaire -->
+            <div class="card shadow-lg border-0">
+                <!-- En-tête de la carte avec le titre et une icône -->
+                <div class="card-header bg-gradient text-white text-center" style="background-color: #2a9d8f;">
+                    <h3 class="mb-0">
+                        <i class="fas fa-user-plus me-2"></i>Se connecter un Compte
+                    </h3>
+                </div>
+                <div class="card-body p-4">
+                    @if (ViewBag.Error != null)
+                    {
+                        <div class="alert alert-danger" role="alert">
+                            <i class="fas fa-exclamation-circle me-2"></i>@ViewBag.Error
+                        </div>
+                    }
+
+                    <form asp-action="Register" asp-controller="User">
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+                        <!-- Champ Login -->
+                        <div class="mb-3">
+                            <label asp-for="Login" class="form-label fw-bold"></label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                <input asp-for="Login" class="form-control" placeholder="Choisissez un nom d'utilisateur" />
+                            </div>
+                            <span asp-validation-for="Login" class="text-danger small"></span>
+                        </div>
+
+                        <!-- Champ Password -->
+                        <div class="mb-4">
+                            <label asp-for="Password" class="form-label fw-bold"></label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                                <input asp-for="Password" type="password" class="form-control" placeholder="Entrez votre mot de passe" />
+                            </div>
+                            <span asp-validation-for="Password" class="text-danger small"></span>
+                        </div>
+
+                        <!-- Bouton de soumission -->
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-success btn-lg">
+                                <i class="fas fa-user-plus me-2"></i>S'inscrire
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <!-- Pied de page de la carte avec le lien vers la connexion -->
+                <div class="card-footer text-center bg-light">
+                    <small class="text-muted">Vous avez déjà un compte ?</small>
+                    <a asp-action="Register" asp-controller="User" class="btn btn-outline-secondary btn-sm mt-2">
+                        <i class="fas fa-sign-in-alt me-2"></i>Se connecter
+                    </a>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
