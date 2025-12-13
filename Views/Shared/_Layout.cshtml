@@ -1,5 +1,5 @@
 ﻿@{
-
+   
     var theme = Context.Request.Cookies["bg-color"] ?? "white";
     var userName = Context.Session.GetString("UserAuth");
 }
@@ -71,6 +71,46 @@
     </header>
     <div class="container">
         <main role="main" class="pb-3">
+            <!-- Flash message -->
+            @if (TempData["FlashMessage"] != null)
+            {
+                var flash = System.Text.Json.JsonSerializer.Deserialize<State_Managment.ViewModels.FlashMessage>(TempData["FlashMessage"].ToString());
+                string type = "warning";
+                string icon = "fa-info-circle";
+                if(flash.Type == State_Managment.Enums.FlashMessageTypes.Success)
+                {
+                    icon = "fa-circle-check";
+                    type = "success";
+                }
+                else
+                {
+                    icon = "fa-triangle-exclamation";
+                    type = "danger";
+                }
+
+                <div class="modal-backdrop show"></div>
+
+                <div class="modal show" id="modal" tabindex="-1" aria-labelledby="modalLabel" aria-modal="true" role="dialog" style="display: block;">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header border-0">
+                                <h5 class="modal-title" id="modalLabel"></h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body text-center">
+                                <i class="fas @icon fa-4x text-@type mb-3"></i>
+                                <h4 class="text-@type">@type</h4>
+                                <p class="mb-0">@flash.Message</p>
+                            </div>
+                            <div class="modal-footer border-0 justify-content-center">
+                                <button type="button" class="btn btn-@type" data-bs-dismiss="modal">OK</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            
             @RenderBody()
         </main>
     </div>
@@ -93,6 +133,17 @@
         //logout //redirect to controller action
         document.getElementById("logout").addEventListener('click' , function (){
             window.location = "/Logout"
+        });
+        //Fermeture de modal :
+        document.querySelectorAll('[data-bs-dismiss="modal"]').forEach(button => {
+            button.addEventListener('click', () => {
+                
+                document.getElementById('modal').style.display = 'none';
+                
+                document.querySelector('.modal-backdrop').remove();
+                
+                document.body.classList.remove('modal-open');
+            });
         });
     </script>
 

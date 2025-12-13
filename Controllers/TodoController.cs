@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using State_Managment.Enums;
 using State_Managment.Filters;
 using State_Managment.Mappers;
 using State_Managment.Models;
@@ -33,10 +34,11 @@ namespace State_Managment.Controllers
         [HttpPost]
         public IActionResult Create(ToDoVM todo)
         {
-            if(!ModelState.IsValid) //error dans les champs retour au formulaire
+            if (!ModelState.IsValid) //error dans les champs retour au formulaire
                 return View();
 
             _todoService.AddTodo(todo);
+            TempData["FlashMessage"] = JsonSerializer.Serialize<FlashMessage>(new FlashMessage { Message = "La tache à etait crée avec succès", Type = FlashMessageTypes.Success });
             return RedirectToAction(nameof(Index));
 
         }
@@ -44,10 +46,14 @@ namespace State_Managment.Controllers
         public IActionResult Delete(int id)
         {
 
-            if(_todoService.DeleteTodo(id))
+            if (_todoService.DeleteTodo(id))
+            {
+                TempData["FlashMessage"] = JsonSerializer.Serialize<FlashMessage>(new FlashMessage { Message = "La tache a etait supprimer  avec succès", Type = FlashMessageTypes.Success });
                 return RedirectToAction(nameof(Index)); //Suppr succeed
+            }
 
-            return RedirectToAction(nameof(Index)); //Error dans la suppr à ajouter
+            TempData["FlashMessage"] = JsonSerializer.Serialize<FlashMessage>(new FlashMessage { Message = "Erreur lors de la suppresion de tache !", Type = FlashMessageTypes.Error });
+            return RedirectToAction(nameof(Index)); //Error dans la suppr 
         }
         [HttpGet]
         public IActionResult Edit(int id)
@@ -67,8 +73,12 @@ namespace State_Managment.Controllers
             if (!ModelState.IsValid)
                 return View("Edit");
             //processus pour updater
-            if(_todoService.UpdateTodo(toDoEditVM))
-                return RedirectToAction(nameof(Index)); //flash resposne a ajouter un message
+            if (_todoService.UpdateTodo(toDoEditVM))
+            {
+                TempData["FlashMessage"] = JsonSerializer.Serialize<FlashMessage>(new FlashMessage { Message = "La tache à etait modifier  avec succès", Type = FlashMessageTypes.Success });
+                return RedirectToAction(nameof(Index));
+            }
+                
             return RedirectToAction(nameof(Update));
         }
     }
