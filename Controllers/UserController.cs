@@ -49,7 +49,7 @@ namespace State_Managment.Controllers
             if (_userService.Logout())
             {
                 TempData["FlashMessage"] = JsonSerializer.Serialize<FlashMessage>(new FlashMessage { Message = "Vous étes deconecter avec succés", Type = FlashMessageTypes.Success });
-                RedirectToAction(nameof(Register));
+                return RedirectToAction(nameof(Register));
             }
             return RedirectToAction(nameof(Logout));
 
