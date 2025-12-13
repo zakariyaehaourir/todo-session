@@ -112,19 +112,27 @@ Afin d’assurer une **traçabilité complète** :
 
 ## 📸 Captures d’écran
 
-> _(À remplacer par vos propres captures d’écran)_
 
 ### 🌞 Mode clair
-Interface principale avec la liste des tâches en thème clair.
+
+<img width="1868" height="657" alt="list" src="https://github.com/user-attachments/assets/8cb42ca5-fa58-4ba2-9a67-d5cc0f65d7d2" />
 
 ### 🌙 Mode sombre
-Application basculée en mode sombre pour un confort visuel optimal.
+<img width="1868" height="732" alt="dark" src="https://github.com/user-attachments/assets/b4e01c39-fd28-45ef-8ae1-a44fb4de52ec" />
+
 
 ### ➕ Page de création
-Formulaire intuitif pour ajouter une nouvelle tâche.
+<img width="1850" height="894" alt="create" src="https://github.com/user-attachments/assets/3e2d3971-e78e-455b-9bda-90fe17c80e7f" />
 
 ### 📋 Liste des tâches
 Vue d’ensemble avec indicateurs visuels de statut et d’urgence.
+
+<img width="1866" height="738" alt="list2" src="https://github.com/user-attachments/assets/af95822a-aa47-40e6-9644-55a85f81b845" />
+
+
+### Flash Messages
+<img width="1596" height="763" alt="1" src="https://github.com/user-attachments/assets/b284d984-413b-4cbf-9a62-140cf24d689a" />
+
 
 ---
 
